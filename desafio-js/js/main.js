@@ -5,7 +5,7 @@ const bgBtnHover = '#22913b'
 const menuContainer = document.querySelector('.btn-group-vertical');
 const btnsMenu = menuContainer.querySelectorAll('.btn');
 
-menuContainer.style.flexDirection = 'row-reverse';
+menuContainer.style.flexDirection = 'row';
 menuContainer.style.gap = '.25rem';
 
 btnsMenu.forEach(botao => {

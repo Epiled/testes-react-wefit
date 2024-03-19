@@ -19,6 +19,7 @@ const Botao = styled.button`
   padding: .8rem;
   font-weight: bold;
   text-transform: uppercase;
+  border: 0;
 
   &:hover {
     background-color: var(--color-btn-main-hover);

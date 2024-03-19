@@ -1,11 +1,12 @@
 import Button from "../components/Button";
-import CardContent from "../components/CardContent";
+import MovieCard from "../components/MovieCard";
+import Header from "../components/Header";
 
 const Home = () => {
   return (
     <>
-      Home
-      <CardContent />
+      <Header />
+      <MovieCard />
       <Button text="Adicionar ao carrinho" icon={true} />
     </>
   )

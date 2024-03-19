@@ -56,7 +56,7 @@ const ResetCSS: React.FC = createGlobalStyle`
     font-size: inherit;
   }
   body {
-
+    background: var(--color-txt);
   }
   * {
     font-size: 62.5%;

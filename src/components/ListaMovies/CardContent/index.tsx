@@ -1,9 +1,18 @@
 import styled from "styled-components"
 import Button from "../../Button"
 import IconLixo from "../../../assets/img/lixo.png";
-import ImageCapa from "../../../assets/img/viuva-negra.png";
 import ImageDecrement from "../../../assets/img/decrement.png";
 import ImageIncrement from "../../../assets/img/increment.png";
+import { useNavigate } from "react-router-dom";
+import { listaNoCarrinho, qtdGeral } from "../../../state/atom";
+import FeedBack from "../../FeedBack";
+import { useRecoilState } from "recoil";
+import { FormatarValor } from "../../../state/hooks/useFormateValor";
+import { IProdutoCarrinho } from "../../../interfaces/IProdutosCarrinho";
+import { useDecrementItemCarrinho } from "../../../state/hooks/useDecrementProdutoCarinho";
+import { useIncrementItemCarrinho } from "../../../state/hooks/useIncrementProdutoCarinho";
+import { useListaCarrinho } from "../../../state/hooks/useListaCarrinho";
+
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +26,7 @@ const Container = styled.div`
 const Cabecalho = styled.header`
   display: grid;
   grid-template-columns: 280px repeat(2, 29.9rem) 1fr;
+
 `
 
 const Corpo = styled(Cabecalho).attrs({ as: 'main' })`
@@ -53,7 +63,7 @@ const ProdutoTexos = styled.div`
 const ProdutoTitulo = styled(Topico)`
   font-size: 1.4rem;
   color: var(--color-txt);`
-  
+
 const ProdutoPreco = styled(ProdutoTitulo)`
   font-size: 1.6rem;
 `
@@ -67,6 +77,7 @@ const BotaoLixeira = styled.button`
   background-color: transparent;
   border: 0;
   margin-left: auto;
+  cursor: pointer;
 `
 
 const Icon = styled.img`
@@ -107,6 +118,18 @@ const IptQtd = styled.input`
   color: var(--color-txt);
   font-size: 1.4rem;
   text-align: center;
+
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
 `
 
 const BotaoDec = styled.button`
@@ -122,49 +145,95 @@ const BotaoInc = styled(BotaoDec)`
 `
 
 const CardContent = () => {
+  const navigate = useNavigate();
+  const [qtd, setQtdGeral] = useRecoilState(qtdGeral);
+  const [listaNoCarrinhoAtom] = useRecoilState(listaNoCarrinho)
+
+  const valorTotal = listaNoCarrinhoAtom.reduce((acumulador, atual) => {
+    return acumulador += atual.price * atual.quantidade
+  }, 0)
+
+  const incrementProdutoNoCarrinho = useIncrementItemCarrinho();
+  const handleIncrementQtd = (item: IProdutoCarrinho) => {
+    incrementProdutoNoCarrinho(item);
+  };
+
+  const decrementarProdutoNoCarrinho = useDecrementItemCarrinho();
+  const handleDecrementaQtd = (item: IProdutoCarrinho) => {
+    decrementarProdutoNoCarrinho(item);
+  };
+
+  const removerProdutoNoCarrinho = useListaCarrinho().removerProdutoCarinho;
+  const handleRemoverDoCarrinho = (item: IProdutoCarrinho) => {
+    removerProdutoNoCarrinho(item); // Adicionando o produto ao carrinho
+  };
+
+  console.log(listaNoCarrinhoAtom.length)
+
   return (
-    <Container>
-      <Cabecalho>
-        <Topico>Produto</Topico>
-        <Topico>Qtd</Topico>
-        <Topico>Subtotal</Topico>
-      </Cabecalho>
+    <>
+      {qtd > 0 && listaNoCarrinhoAtom.length > 0 ?
 
-      <Corpo>
-        <Produto>
-          <ProdutoImage src={ImageCapa} />
-          <ProdutoTexos>
-            <ProdutoTitulo>
-              Homem Aranha
-            </ProdutoTitulo>
-            <ProdutoPreco>
-              R$ 29,99
-            </ProdutoPreco>
-          </ProdutoTexos>
-        </Produto>
-        <Quantidade>
-          <BotaoDec />
-          <IptQtd type="number" />
-          <BotaoInc />
-        </Quantidade>
-        <CorpoText>
-          R$ 29,99
-        </CorpoText>
-        <BotaoLixeira>
-          <Icon src={IconLixo} />
-        </BotaoLixeira>
-      </Corpo>
+        <Container>
+          <Cabecalho>
+            <Topico>Produto</Topico>
+            <Topico>Qtd</Topico>
+            <Topico>Subtotal</Topico>
+          </Cabecalho>
 
-      <LineBreak />
+          {listaNoCarrinhoAtom.map(item => {
+            return (
+                <Corpo key={item.id}>
+                  <Produto>
+                    <ProdutoImage src={item.image} />
+                    <ProdutoTexos>
+                      <ProdutoTitulo>
+                        {item.title}
+                      </ProdutoTitulo>
+                      <ProdutoPreco>
+                        R$ {FormatarValor(item.price)}
+                      </ProdutoPreco>
+                    </ProdutoTexos>
+                  </Produto>
 
-      <Rodape>
-        <Button text="Finalizar Pedido" icon={false} />
-        <RodapeInfos>
-          <RodapeText>Total</RodapeText>
-          <RodapeTotal>R$ 29,90</RodapeTotal>
-        </RodapeInfos>
-      </Rodape>
-    </Container>
+                  <Quantidade>
+                    <BotaoDec onClick={() => handleDecrementaQtd(item)} />
+                    <IptQtd type="number" value={item.quantidade} />
+                    <BotaoInc onClick={() => handleIncrementQtd(item)} />
+                  </Quantidade>
+
+                  <CorpoText>
+                    R$ {FormatarValor(item.price * item.quantidade)}
+                  </CorpoText>
+
+                  <BotaoLixeira onClick={() => handleRemoverDoCarrinho(item)}>
+                    <Icon src={IconLixo} />
+                  </BotaoLixeira>
+                </Corpo>
+              )
+            })
+          }
+          < LineBreak />
+
+          <Rodape>
+            <Button
+              text="Finalizar Pedido"
+              icon={false}
+              onClick={() => {
+                navigate('/compra-realizada');
+                setQtdGeral(0);
+              }}
+            />
+            <RodapeInfos>
+              <RodapeText>Total</RodapeText>
+              <RodapeTotal>R$ {FormatarValor(valorTotal)}</RodapeTotal>
+            </RodapeInfos>
+          </Rodape>
+        </Container>
+        :
+        <FeedBack tipo={"notFound"} />
+      }
+    </>
   )
 }
 

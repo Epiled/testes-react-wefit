@@ -59,8 +59,8 @@ const FeedBack = ({ tipo }: IFeedBack) => {
           <Button
             text="Voltar"
             $transform="uppercase"
-            onClick={() => navigate('/')}
             $minHeight={4}
+            onClick={() => navigate('/')}
           />
         </>
         :
@@ -71,7 +71,11 @@ const FeedBack = ({ tipo }: IFeedBack) => {
           <Moldura>
             <ImageNot src={ImageNotFound} />
           </Moldura>
-          <Button text="Recarregar página" $minHeight={4} />
+          <Button 
+            text="Recarregar página" 
+            $minHeight={4} 
+            onClick={() => navigate('/')}
+          />
         </>
       }
     </Container>

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import IconCart from "../../assets/svg/shopping-cart.svg";
-import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { qtdGeral } from "../../state/atom";
 interface IBotao {
@@ -9,6 +9,7 @@ interface IBotao {
   $transform?: 'uppercase' | 'capitalize' | 'lowercase';
   $maxContainer?: boolean;
   $minHeight?: number;
+  $tipo?: string;
   onClick?: () => void;
 }
 
@@ -67,18 +68,23 @@ const Contador = ({ quantidade }: { quantidade: number }) => {
   )
 }
 
-const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick }: IBotao) => {
+const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick, $tipo}: IBotao) => {
   const [quantidade, setQuantidade] = useState(0);
   const [qtd, setQtdGeral] = useRecoilState(qtdGeral);
 
   const qtdEstado = quantidade > 0;
 
   const handleClick = () => {
-    setQuantidade(quantidade + 1);
-    setQtdGeral(qtd + 1);
+    
     if (onClick) {
       onClick();
     }
+    
+    if($tipo === "buy") {
+      setQuantidade(quantidade + 1);
+      setQtdGeral(qtd + 1);
+    }
+
   };
 
   return (
@@ -86,7 +92,7 @@ const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick }: 
       data-add-cart={qtdEstado} 
       $transform={$transform} 
       $maxContainer={$maxContainer} 
-      $minHeight={$minHeight} 
+      $minHeight={$minHeight}
       onClick={handleClick}
     >
       {icon && <Contador quantidade={quantidade} />}

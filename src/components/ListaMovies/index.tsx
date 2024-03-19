@@ -1,43 +1,46 @@
 import styled from "styled-components";
 import MovieCard from "../MovieCard";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { listaProdutos } from "../../state/atom";
+import { useEffect } from "react";
 
-const Filmes = [
+const filmes = [
   {
-    image: "caminho/para/imagem1.jpg",
-    titulo: "Produto 1",
-    preco: "R$ 10,00",
-    id: "1",
+    "id": 1,
+    "title": "Viúva Negra",
+    "price": 9.99,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/viuva-negra.png"
   },
   {
-    image: "caminho/para/imagem2.jpg",
-    titulo: "Produto 2",
-    preco: "R$ 20,00",
-    id: "2",
+    "id": 2,
+    "title": "Shang-chi",
+    "price": 30.99,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/shang-chi.png"
   },
   {
-    image: "caminho/para/imagem3.jpg",
-    titulo: "Produto 3",
-    preco: "R$ 30,00",
-    id: "3",
+    "id": 3,
+    "title": "Homem Aranha",
+    "price": 29.9,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/spider-man.png"
   },
   {
-    image: "caminho/para/imagem4.jpg",
-    titulo: "Produto 4",
-    preco: "R$ 40,00",
-    id: "4",
+    "id": 5,
+    "title": "Morbius",
+    "price": 1.5,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/morbius-1.png"
   },
   {
-    image: "caminho/para/imagem5.jpg",
-    titulo: "Produto 5",
-    preco: "R$ 50,00",
-    id: "5",
+    "id": 6,
+    "title": "Batman",
+    "price": 21.9,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/the-batman.png"
   },
   {
-    image: "caminho/para/imagem6.jpg",
-    titulo: "Produto 6",
-    preco: "R$ 60,00",
-    id: "6",
-  },
+    "id": 4,
+    "title": "Eternos",
+    "price": 17.9,
+    "image": "https://wefit-react-web-test.s3.amazonaws.com/eternals.png"
+  }
 ]
 
 const Container = styled.main`
@@ -54,9 +57,17 @@ const Container = styled.main`
 `
 
 const ListaMovies = () => {
+  const [listaProdutosAPI] = useRecoilState(listaProdutos);
+  const setListaProdutos = useSetRecoilState(listaProdutos);
+
+  useEffect(() => {
+    setListaProdutos(filmes)
+  }, [setListaProdutos]);
+
+
   return (
     <Container>
-      {Filmes.map(filme => {
+      {listaProdutosAPI.map(filme => {
         return <MovieCard key={filme.id} {...filme} />
       })}
     </Container>

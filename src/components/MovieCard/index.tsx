@@ -1,13 +1,10 @@
 import styled from "styled-components"
 import Button from "../Button"
-import ImageCapa from "../../assets/img/viuva-negra.png";
-
-interface IMovieCard {
-  image: string;
-  titulo: string;
-  preco: string;
-  id: string;
-}
+import { IProduto } from "../../interfaces/IProdutos";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { listaNoCarrinho } from "../../state/atom";
+import { useState } from "react";
+import { useListaCarrinho } from "../../state/hooks/useListaCarrinho";
 
 const Card = styled.div`
   display: flex;
@@ -34,13 +31,26 @@ const Preco = styled(Titulo).attrs({ as: 'span' })`
   font-size: 1.6rem;
 `
 
-const MovieCard = ({image, titulo, preco, id}: IMovieCard) => {
+const MovieCard = ({id, title, price, image}: IProduto) => {
+
+  const adicionarProdutoNoCarrinho = useListaCarrinho().adicionarProdutoNoCarrinho;
+  const handleAdicionarAoCarrinho = () => {
+    const produto = { id, title, price, image, quantidade: 0 };
+    adicionarProdutoNoCarrinho(produto); // Adicionando o produto ao carrinho
+  };
+
   return (
-    <Card>
-      <Image src={ImageCapa} />
-      <Titulo>{titulo}</Titulo>
-      <Preco>R$ {preco}</Preco>
-      <Button text="Adicionar ao carrinho" $maxContainer icon />
+    <Card data-produto-id={id}>
+      <Image src={image} />
+      <Titulo>{title}</Titulo>
+      <Preco>R$ {price.toFixed(2).replace('.', ',')}</Preco>
+      <Button 
+        text="Adicionar ao carrinho" 
+        $maxContainer 
+        icon 
+        onClick={() => handleAdicionarAoCarrinho()}
+        $tipo="buy"
+      />
     </Card>
   )
 }

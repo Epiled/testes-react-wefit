@@ -1,7 +1,12 @@
-export default () => {
+import Button from "../components/Button";
+
+const Home = () => {
   return (
-    <Text>
-      Olá Mundo;
-    </Text>
+    <>
+      Home
+      <Button text="Adicionar ao carrinho" icon={true} />
+    </>
   )
 }
+
+export default Home;

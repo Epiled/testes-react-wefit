@@ -59,13 +59,12 @@ const ResetCSS: React.FC = createGlobalStyle`
     font-size: inherit;
   }
   body {
-    background-color: ${({ theme }) => theme.bg};
-    transition: background .5s;
+
   }
   * {
     font-size: 62.5%;
     box-sizing: border-box;
-    font-family: Urbanist;
+    font-family: "Open Sans", sans-serif;
   }
 `
 

@@ -1,8 +1,10 @@
+import FeedBack from "../components/FeedBack";
+
 const CompraRealizada = () => {
   return (
-    <>
-      Compra Realizada
-    </>
+    <main>
+      <FeedBack tipo='compra' />
+    </main>
   )
 }
 

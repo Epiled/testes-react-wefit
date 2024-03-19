@@ -3,9 +3,10 @@ import IconCart from "../../assets/svg/shopping-cart.svg";
 interface IBotao {
   text?: string;
   icon?: boolean;
-  transform?: 'uppercase' | 'capitalize' | 'lowercase';
+  $transform?: 'uppercase' | 'capitalize' | 'lowercase';
   maxContainer?: boolean;
-  onPress?: () => void;
+  $minHeight?: number;
+  onClick?: () => void;
 }
 
 const Botao = styled.button<IBotao>`
@@ -22,10 +23,14 @@ const Botao = styled.button<IBotao>`
   text-transform: ${props => props.transform ? props.transform : 'none'};
   border: 0;
   min-width: 17.3rem;
+  min-height: ${props => props.$minHeight ? `${props.$minHeight}rem` : 'auto'};
   ${props => props.maxContainer ? 'align-self: stretch' : ''};
+
+
 
   &:hover {
     background-color: var(--color-btn-main-hover);
+    cursor: pointer;
   }
 
   &[data-add-cart="true"] {
@@ -62,10 +67,10 @@ const Contador = () => {
   )
 }
 
-const Button = ({ text, icon, transform, maxContainer }: IBotao) => {
+const Button = ({ text, icon, $transform, maxContainer, $minHeight, onClick }: IBotao) => {
   console.log(maxContainer)
   return (
-    <Botao data-add-cart='false' transform={transform} maxContainer={maxContainer}>
+    <Botao data-add-cart='false' $transform={$transform} maxContainer={maxContainer} $minHeight={$minHeight} onClick={onClick}>
       {icon && <Contador />}
       {text && text}
     </Botao>

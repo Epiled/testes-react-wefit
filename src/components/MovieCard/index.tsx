@@ -2,6 +2,13 @@ import styled from "styled-components"
 import Button from "../Button"
 import ImageCapa from "../../assets/img/viuva-negra.png";
 
+interface IMovieCard {
+  image: string;
+  titulo: string;
+  preco: string;
+  id: string;
+}
+
 const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,7 +16,6 @@ const Card = styled.div`
   padding: 1.6rem;
   background-color: var(--lighter);
   border-radius: .4rem;
-  min-width: 32.8rem;
   align-items: center;
 `
 
@@ -28,13 +34,13 @@ const Preco = styled(Titulo).attrs({ as: 'span' })`
   font-size: 1.6rem;
 `
 
-const MovieCard = () => {
+const MovieCard = ({image, titulo, preco, id}: IMovieCard) => {
   return (
     <Card>
       <Image src={ImageCapa} />
-      <Titulo>Viúva Negra</Titulo>
-      <Preco>R$ 9,99</Preco>
-      <Button text="Adicionar ao carrinho" icon />
+      <Titulo>{titulo}</Titulo>
+      <Preco>R$ {preco}</Preco>
+      <Button text="Adicionar ao carrinho" maxContainer icon />
     </Card>
   )
 }

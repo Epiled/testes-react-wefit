@@ -1,16 +1,17 @@
 import styled from "styled-components"
 import IconCart from "../../assets/svg/shopping-cart.svg";
 interface IBotao {
-  text: string;
+  text?: string;
   icon?: boolean;
+  transform?: 'uppercase' | 'capitalize' | 'lowercase';
+  maxContainer?: boolean;
   onPress?: () => void;
 }
 
-const Botao = styled.button`
+const Botao = styled.button<IBotao>`
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: stretch;
   gap: 1.2rem;
   background-color: var(--color-btn-main);
   border-radius: .4rem;
@@ -18,8 +19,10 @@ const Botao = styled.button`
   font-size: 1.2rem;
   padding: .8rem;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: ${props => props.transform ? props.transform : 'none'};
   border: 0;
+  min-width: 17.3rem;
+  ${props => props.maxContainer ? 'align-self: stretch' : ''};
 
   &:hover {
     background-color: var(--color-btn-main-hover);
@@ -59,11 +62,12 @@ const Contador = () => {
   )
 }
 
-const Button = ({ text, icon }: IBotao) => {
+const Button = ({ text, icon, transform, maxContainer }: IBotao) => {
+  console.log(maxContainer)
   return (
-    <Botao data-add-cart='false'>
+    <Botao data-add-cart='false' transform={transform} maxContainer={maxContainer}>
       {icon && <Contador />}
-      {text}
+      {text && text}
     </Botao>
   )
 }

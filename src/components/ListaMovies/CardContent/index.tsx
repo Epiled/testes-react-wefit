@@ -1,10 +1,9 @@
 import styled from "styled-components"
-import Button from "../Button"
+import Button from "../../Button"
 import IconLixo from "../../assets/img/lixo.png";
 import ImageCapa from "../../assets/img/viuva-negra.png";
 import ImageDecrement from "../../assets/img/decrement.png";
 import ImageIncrement from "../../assets/img/increment.png";
-
 
 const Container = styled.div`
   display: flex;
@@ -122,10 +121,6 @@ const BotaoInc = styled(BotaoDec)`
   background: url(${ImageIncrement});
 `
 
-// <button className={style.modal__dec}>-</button>
-// <input className={style.modal__qtd} type="number" name="" id="modalQuantidade" />
-// <button className={style.modal__acre}>+</button>
-
 const CardContent = () => {
   return (
     <Container>
@@ -149,7 +144,7 @@ const CardContent = () => {
         </Produto>
         <Quantidade>
           <BotaoDec />
-          <IptQtd type="number" value={1} />
+          <IptQtd type="number" />
           <BotaoInc />
         </Quantidade>
         <CorpoText>

@@ -19,6 +19,7 @@ const Variaveis: React.FC = createGlobalStyle`
     --color-txt-second: #999999;
 
     --color-border: #D9D9D9;
+    --color-border-alt: #3F3D56;
   }
 `
 

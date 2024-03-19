@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import IconCart from "../../assets/svg/shopping-cart.svg";
-
 interface IBotao {
   text: string;
   icon?: boolean;
@@ -9,6 +8,9 @@ interface IBotao {
 
 const Botao = styled.button`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
   gap: 1.2rem;
   background-color: var(--color-btn-main);
   border-radius: .4rem;

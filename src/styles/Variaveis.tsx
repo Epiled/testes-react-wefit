@@ -15,7 +15,8 @@ const Variaveis: React.FC = createGlobalStyle`
     --color-btn-second-active: #038b00;
 
     --color-txt: #2F2E41;
-    --color-txt-alt: #999999;
+    --color-txt-alt: #333333;
+    --color-txt-second: #999999;
 
     --color-border: #D9D9D9;
   }

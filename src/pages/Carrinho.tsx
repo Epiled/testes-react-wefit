@@ -1,8 +1,10 @@
+import CardContent from "../components/ListaMovies/CardContent";
+
 const Carrinho = () => {
   return (
-    <>
-      Carrinho
-    </>
+    <main>
+      <CardContent />
+    </main>
   )
 }
 

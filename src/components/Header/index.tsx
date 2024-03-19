@@ -1,5 +1,8 @@
 import styled from "styled-components"
 import IconSacola from "../../assets/img/sacola.png";
+import { useRecoilState } from "recoil";
+import { qtdGeral } from "../../state/atom";
+import { useNavigate } from "react-router-dom";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -50,15 +53,16 @@ const BotaoCarrinho = styled.button`
   height: 4rem;
   width: 4rem;
   border: 0;
+  cursor: pointer;
 `
 
 const Icone = styled.img`
   width: 2.4rem;
 `
 
-
-
 const Header = () => {
+  const [qtd] = useRecoilState(qtdGeral);
+  const navigator = useNavigate();
 
   return (
     <HeaderBox>
@@ -67,10 +71,10 @@ const Header = () => {
       <Carrinho>
         <CarrinhoTextos>
           <CarrinhoText>Meu Carrinho</CarrinhoText>
-          <CarrinhoQtd>0 itens</CarrinhoQtd>
+          <CarrinhoQtd>{qtd} itens</CarrinhoQtd>
         </CarrinhoTextos>
 
-        <BotaoCarrinho>
+        <BotaoCarrinho onClick={() => navigator('/carrinho')}>
           <Icone src={IconSacola} />
         </BotaoCarrinho>
       </Carrinho>

@@ -40,7 +40,7 @@ const MovieCard = ({image, titulo, preco, id}: IMovieCard) => {
       <Image src={ImageCapa} />
       <Titulo>{titulo}</Titulo>
       <Preco>R$ {preco}</Preco>
-      <Button text="Adicionar ao carrinho" maxContainer icon />
+      <Button text="Adicionar ao carrinho" $maxContainer icon />
     </Card>
   )
 }

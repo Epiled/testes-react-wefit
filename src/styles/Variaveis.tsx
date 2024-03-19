@@ -12,7 +12,7 @@ const Variaveis: React.FC = createGlobalStyle`
     --color-btn-main: #009EDD;
     --color-btn-main-hover: #0073A1;
     --color-btn-second: #039B00; 
-    --color-btn-second-active: #038b00;
+    --color-btn-second-hover: #038b00;
 
     --color-txt: #2F2E41;
     --color-txt-alt: #333333;

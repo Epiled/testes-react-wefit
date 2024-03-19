@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import Button from "../../Button"
-import IconLixo from "../../assets/img/lixo.png";
-import ImageCapa from "../../assets/img/viuva-negra.png";
-import ImageDecrement from "../../assets/img/decrement.png";
-import ImageIncrement from "../../assets/img/increment.png";
+import IconLixo from "../../../assets/img/lixo.png";
+import ImageCapa from "../../../assets/img/viuva-negra.png";
+import ImageDecrement from "../../../assets/img/decrement.png";
+import ImageIncrement from "../../../assets/img/increment.png";
 
 const Container = styled.div`
   display: flex;

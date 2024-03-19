@@ -9,21 +9,24 @@ import { Suspense } from 'react'
 import Carregando from './components/Carregando'
 import Header from './components/Header'
 import ContainerPadrao from './components/ContainerPadrao'
+import { RecoilRoot } from 'recoil'
 
 function App() {
 
   return (
     <Router>
-      <EstilosGlobais />
-      <Header />
-      <Suspense fallback={<Carregando />} />
-      <Routes>
-        <Route path='/' element={<ContainerPadrao />}>
-          <Route index path="/" element={<Home />} />
-          <Route path="/carrinho" element={<Carrinho />} />
-          <Route path="/compra-realizada" element={<CompraRealizada />} />
-        </Route>
-      </Routes>
+      <RecoilRoot>
+        <EstilosGlobais />
+        <Header />
+        <Suspense fallback={<Carregando />} />
+        <Routes>
+          <Route path='/' element={<ContainerPadrao />}>
+            <Route index path="/" element={<Home />} />
+            <Route path="/carrinho" element={<Carrinho />} />
+            <Route path="/compra-realizada" element={<CompraRealizada />} />
+          </Route>
+        </Routes>
+      </RecoilRoot>
     </Router>
   )
 }

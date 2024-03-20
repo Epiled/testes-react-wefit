@@ -70,7 +70,7 @@ São elas:
 <h2 id="demonstracao"> 👀 Demonstração </h2>
 
 <p>No link abaixo vocês podem ver as páginas hospedadas e rodar seus próprios teste de perfomance ou desempenho</p>
-<p>Desafio JS: <a href="https://teste-front-end-jr-mc15.vercel.app/">https://testes-react-wefit.vercel.app/desafio-js</a></p>
+<p>Desafio JS: <a href="https://epiled.github.io/testes-react-wefit/desafio-js/">https://epiled.github.io/testes-react-wefit/desafio-js/</a></p>
 <p>Desafio de Estruturação de Projeto React + TypeScript + styled-components: <a href="https://testes-react-wefit.vercel.app/">https://testes-react-wefit.vercel.app/</a></p>
 
 https://github.com/Epiled/testes-react-wefit/assets/55258483/cf807c92-a9d7-4a70-8e08-d9b6ebb74ec4

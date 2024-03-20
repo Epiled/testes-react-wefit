@@ -3,6 +3,7 @@ import IconSacola from "../../assets/img/sacola.png";
 import { useRecoilState } from "recoil";
 import { qtdNoCarrinhoState } from "../../state/atom";
 import { useNavigate } from "react-router-dom";
+import { dimenssoesImagem } from "../../utils/dimenssoesImagem";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -64,6 +65,8 @@ const Header = () => {
   const [qtdNoCarrinho] = useRecoilState(qtdNoCarrinhoState);
   const navigator = useNavigate();
 
+  const {width, height} = dimenssoesImagem(IconSacola);
+
   return (
     <HeaderBox>
       <Logo>WeMovies</Logo>
@@ -74,8 +77,8 @@ const Header = () => {
           <CarrinhoQtd>{qtdNoCarrinho} itens</CarrinhoQtd>
         </CarrinhoTextos>
 
-        <BotaoCarrinho onClick={() => navigator('/carrinho')}>
-          <Icone src={IconSacola} />
+        <BotaoCarrinho aria-label="Navegar para página carrinho de compras" onClick={() => navigator('/carrinho')}>
+          <Icone src={IconSacola} width={width} height={height} />
         </BotaoCarrinho>
       </Carrinho>
     </HeaderBox>

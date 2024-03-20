@@ -1,4 +1,4 @@
-import ListaMovies from "../components/ListaMovies";
+import ListaMovies from "../components/ListaProdutos";
 
 const Home = () => {
 

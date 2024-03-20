@@ -1,10 +1,8 @@
-import CardContent from "../components/ListaMovies/CardContent";
+import ListaCarrinho from "../components/ListaCarrinho";
 
 const Carrinho = () => {
   return (
-    <main>
-      <CardContent />
-    </main>
+    <ListaCarrinho />
   )
 }
 

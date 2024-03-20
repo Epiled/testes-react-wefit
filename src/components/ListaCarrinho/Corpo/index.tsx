@@ -1,14 +1,17 @@
 import styled from "styled-components"
-import IconLixo from "../../../../assets/img/lixo.png";
-import ImageDecrement from "../../../../assets/img/decrement.png";
-import ImageIncrement from "../../../../assets/img/increment.png";
-import { formatarValor } from "../../../../utils/formatarValor"
-import { IProdutoCarrinho } from "../../../../interfaces/IProdutosCarrinho";
-import { useIncrementItemCarrinho } from "../../../../state/hooks/useIncrementProdutoCarinho";
-import { useDecrementItemCarrinho } from "../../../../state/hooks/useDecrementProdutoCarinho";
-import { useListaCarrinho } from "../../../../state/hooks/useListaCarrinho";
+import IconLixo from "../../../assets/img/lixo.png";
+import ImageDecrement from "../../../assets/img/decrement.png";
+import ImageIncrement from "../../../assets/img/increment.png";
+import { formatarValor } from "../../../utils/formatarValor"
+import { dimenssoesImagem } from "../../../utils/dimenssoesImagem";
+import { IProdutoCarrinho } from "../../../interfaces/IProdutosCarrinho";
+import { useIncrementItemCarrinho } from "../../../state/hooks/useIncrementProdutoCarinho";
+import { useDecrementItemCarrinho } from "../../../state/hooks/useDecrementProdutoCarinho";
+import { useListaCarrinho } from "../../../state/hooks/useListaCarrinho";
+import { qtdNoCarrinhoState } from "../../../state/atom";
 import { useRecoilState } from "recoil";
-import { qtdNoCarrinhoState } from "../../../../state/atom";
+import { useState } from "react";
+import { useChangeItemCarrinho } from "../../../state/hooks/useChengeProdutoCarinho";
 
 const CorpoBox = styled.main`
   display: grid;
@@ -163,38 +166,59 @@ const Icon = styled.img`
   vertical-align: middle;
 `
 
-const Corpo = ({ props }: { props: IProdutoCarrinho }) => {
+const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho & { props : IProdutoCarrinho}) => {
   const [qtdNoCarrinho, setQtdNoCarrinho] = useRecoilState(qtdNoCarrinhoState);
+  const [qtdEsteProduto, setQtdEsteProduto] = useState(quantidade);
 
   const incrementProdutoNoCarrinho = useIncrementItemCarrinho();
   const handleIncrementQtd = (item: IProdutoCarrinho) => {
+    const novoQtd = qtdNoCarrinho + 1
     setQtdNoCarrinho(qtdNoCarrinho + 1);
     incrementProdutoNoCarrinho(item);
+    setQtdEsteProduto(novoQtd);
   };
 
   const decrementarProdutoNoCarrinho = useDecrementItemCarrinho();
   const handleDecrementaQtd = (item: IProdutoCarrinho) => {
-    setQtdNoCarrinho(props.quantidade > 1 ? qtdNoCarrinho - 1 : qtdNoCarrinho);
+    const novoQtd = quantidade > 1 ? qtdNoCarrinho - 1 : qtdNoCarrinho;
+    setQtdNoCarrinho(novoQtd);
     decrementarProdutoNoCarrinho(item);
+    setQtdEsteProduto(novoQtd);
   };
+
+  const changeProdutoNoCarrinho = useChangeItemCarrinho();
+  const handleChangeQtd = (item: IProdutoCarrinho, event: React.ChangeEvent<HTMLInputElement>) => {
+    const novoQtd = Number(event.target.value);
+    const valorValidado = novoQtd > 1 ? novoQtd : qtdEsteProduto;
+    changeProdutoNoCarrinho(item , valorValidado);
+
+    const qtdCarrinhoLimpo = qtdNoCarrinho - qtdEsteProduto;
+    const novaQtdCarrinho = qtdCarrinhoLimpo + valorValidado;
+    setQtdNoCarrinho(novaQtdCarrinho);
+    setQtdEsteProduto(valorValidado);
+  }
 
   const removerProdutoNoCarrinho = useListaCarrinho().removerProdutoCarinho;
   const handleRemoverDoCarrinho = (item: IProdutoCarrinho) => {
-    setQtdNoCarrinho(qtdNoCarrinho - props.quantidade);
+    const novoQtd = qtdNoCarrinho - quantidade;
+    setQtdNoCarrinho(novoQtd);
     decrementarProdutoNoCarrinho(item);
     removerProdutoNoCarrinho(item);
+    setQtdEsteProduto(novoQtd);
   };
 
+  const {width, height} = dimenssoesImagem(image);
+
   return (
-    <CorpoBox key={props.id}>
+    <CorpoBox key={id}>
       <Produto>
-        <ProdutoImage src={props.image} />
+        <ProdutoImage src={image} alt={`Poster ${title}`} width={width} height={height} />
         <ProdutoTexos>
           <ProdutoTitulo>
-            {props.title}
+            {title}
           </ProdutoTitulo>
           <ProdutoPreco>
-            {formatarValor(props.price)}
+            {formatarValor(price)}
           </ProdutoPreco>
           <BotaoLixeiraMobile onClick={() => handleRemoverDoCarrinho(props)}>
             <Icon src={IconLixo} />
@@ -204,13 +228,13 @@ const Corpo = ({ props }: { props: IProdutoCarrinho }) => {
 
       <Quantidade>
         <BotaoDec onClick={() => handleDecrementaQtd(props)} />
-        <IptQtd type="number" value={props.quantidade} />
+        <IptQtd type="number" value={quantidade} onChange={(e) => handleChangeQtd(props, e)} />
         <BotaoInc onClick={() => handleIncrementQtd(props)} />
       </Quantidade>
 
       <CorpoText>
         <CorpoTextMobile>Subtotal</CorpoTextMobile>
-        {formatarValor(props.price * props.quantidade)}
+        {formatarValor(price * quantidade)}
       </CorpoText>
 
       <BotaoLixeira onClick={() => handleRemoverDoCarrinho(props)}>

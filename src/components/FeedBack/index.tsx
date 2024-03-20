@@ -6,7 +6,7 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import { IFeedBack } from "../../interfaces/IFeedBack";
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,8 +58,8 @@ const FeedBack = ({ tipo }: IFeedBack) => {
           <ImageNot src={ImageNotFound} />
         </Moldura>}
       <Button
-        text="Voltar"
-        $transform="uppercase"
+        text={tipo === 'compra' ? 'Voltar' : 'Recarregar página'}
+        $transform={tipo === 'compra' ? 'uppercase' : 'none'}
         $minHeight={4}
         onClick={() => navigate('/')}
       />

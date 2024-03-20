@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import { useRecoilState, useRecoilValue } from "recoil";
-import { produtosNoCarrinhoState, qtdNoCarrinhoState } from "../../../state/atom";
-import FeedBack from "../../FeedBack";
+import { useRecoilValue } from "recoil";
+import { produtosNoCarrinhoState, qtdNoCarrinhoState } from "../../state/atom";
+import FeedBack from "../FeedBack";
 import Cabecalho from "./Cabecalho";
 import Rodape from "./Rodape";
 import Corpo from "./Corpo";
@@ -21,7 +21,7 @@ const LineBreak = styled.hr`
   height: .1rem;
 `
 
-const CardContent = () => {
+const CarrinhoDeCompras = () => {
   const qtdNoCarrinho = useRecoilValue(qtdNoCarrinhoState);
   const listaNoCarrinho = useRecoilValue(produtosNoCarrinhoState)
 
@@ -34,7 +34,7 @@ const CardContent = () => {
 
           {listaNoCarrinho.map(item => {
             return (
-              <Corpo key={item.id} props={item} />
+              <Corpo key={item.id} props={item} {...item} />
             )
           })
           }
@@ -49,4 +49,4 @@ const CardContent = () => {
   )
 }
 
-export default CardContent;
+export default CarrinhoDeCompras;

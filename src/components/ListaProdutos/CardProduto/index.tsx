@@ -1,8 +1,9 @@
 import styled from "styled-components"
-import Button from "../Button"
-import { IProduto } from "../../interfaces/IProdutos";
-import { useListaCarrinho } from "../../state/hooks/useListaCarrinho";
-import { formatarValor } from "../../utils/formatarValor";
+import Button from "../../Button"
+import { IProduto } from "../../../interfaces/IProdutos";
+import { useListaCarrinho } from "../../../state/hooks/useListaCarrinho";
+import { formatarValor } from "../../../utils/formatarValor";
+import { dimenssoesImagem } from "../../../utils/dimenssoesImagem";
 
 const Card = styled.div`
   display: flex;
@@ -29,7 +30,8 @@ const Preco = styled(Titulo).attrs({ as: 'span' })`
   font-size: 1.6rem;
 `
 
-const MovieCard = ({id, title, price, image}: IProduto) => {
+const CardProduto = ({id, title, price, image}: IProduto) => {
+  const {width, height} = dimenssoesImagem(image);
 
   const adicionarProdutoNoCarrinho = useListaCarrinho().adicionarProdutoNoCarrinho;
   const handleAdicionarAoCarrinho = () => {
@@ -39,7 +41,7 @@ const MovieCard = ({id, title, price, image}: IProduto) => {
 
   return (
     <Card data-produto-id={id}>
-      <Image src={image} />
+      <Image src={image} alt={`Poster ${title}`} width={width} height={height} />
       <Titulo>{title}</Titulo>
       <Preco>{formatarValor(price)}</Preco>
       <Button 
@@ -55,4 +57,4 @@ const MovieCard = ({id, title, price, image}: IProduto) => {
   )
 }
 
-export default MovieCard;
+export default CardProduto;

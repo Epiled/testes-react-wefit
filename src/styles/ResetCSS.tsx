@@ -63,6 +63,10 @@ const ResetCSS: React.FC = createGlobalStyle`
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
   }
+  #root {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
 `
 
 export default ResetCSS;

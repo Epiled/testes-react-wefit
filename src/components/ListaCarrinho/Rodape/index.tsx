@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Button from "../../../Button";
-import { formatarValor } from "../../../../utils/formatarValor";
+import Button from "../../Button";
+import { formatarValor } from "../../../utils/formatarValor";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { produtosNoCarrinhoState, qtdNoCarrinhoState } from "../../../../state/atom";
+import { produtosNoCarrinhoState, qtdNoCarrinhoState } from "../../../state/atom";
 
 const RodapeBox = styled.header`
   display: flex;

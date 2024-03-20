@@ -66,6 +66,9 @@ const ResetCSS: React.FC = createGlobalStyle`
   #root {
     max-width: 1080px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 `
 

@@ -2,13 +2,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import { RecoilRoot } from 'recoil'
 import EstilosGlobais from './styles/EstilosGlobais'
-import { Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 import Carregando from './components/Carregando'
-import ContainerPadrao from './components/ContainerPadrao'
-import Home from './pages/Home'
-import Carrinho from './pages/Carrinho'
-import CompraRealizada from './pages/CompraRealizada'
 import Header from './components/Header'
+
+const ContainerPadrao = lazy(() => import('./components/ContainerPadrao'));
+const FeedBack = lazy(() => import('./components/FeedBack'));
+const Home = lazy(() => import('./pages/Home'));
+const Carrinho = lazy(() => import('./pages/Carrinho'));
+const CompraRealizada = lazy(() => import('./pages/CompraRealizada'));
 
 function App() {
 
@@ -24,6 +26,7 @@ function App() {
               <Route path="/carrinho" element={<Carrinho />} />
               <Route path="/compra-realizada" element={<CompraRealizada />} />
             </Route>
+            <Route path='*' element={<FeedBack tipo='notFound' />} />
           </Routes>
         </Suspense>
       </RecoilRoot>

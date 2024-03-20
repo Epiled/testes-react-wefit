@@ -9,10 +9,15 @@ import Corpo from "./Corpo";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 2.1rem;
   background-color: var(--lighter);
   border-radius: .4rem;
-  padding: 2.4rem;
+  padding: 1.6rem;
+
+  @media screen and (min-width: 1080px) {
+    gap: 2.4rem;
+    padding: 2.4rem;
+  }
 `
 
 const LineBreak = styled.hr`

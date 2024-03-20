@@ -1,7 +1,6 @@
 import ListaMovies from "../components/ListaProdutos";
 
 const Home = () => {
-
   return (
     <ListaMovies />
   )

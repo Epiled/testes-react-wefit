@@ -2,11 +2,10 @@ import { useRecoilState } from "recoil";
 import { produtosNoCarrinhoState } from "../atom";
 import { IProdutoCarrinho } from "../../interfaces/IProdutosCarrinho";
 
-// Hook personalizado para adicionar um produto ao carrinho
 export const useDecrementItemCarrinho = () => {
   const [produtosNoCarrinho, setProdutosNoCarrinho] = useRecoilState(produtosNoCarrinhoState);
 
-  // Função para adicionar um produto ao carrinho
+  // Função para subtrair um/1 produto do carrinho
   const decrementItemCarrinho = (produto: IProdutoCarrinho) => {
     const existeItem = produtosNoCarrinho.find(item => item.id === produto.id);
 
@@ -17,6 +16,6 @@ export const useDecrementItemCarrinho = () => {
     }
   };
 
-  // Retorna a função para adicionar o produto ao carrinho
+  // Retorna a função para subtrair o produto do carrinho
   return decrementItemCarrinho;
 };

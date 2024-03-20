@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { produtosNoCarrinhoState, qtdNoCarrinhoState } from "../../../state/atom";
 
-const RodapeBox = styled.header`
+const RodapeBox = styled.footer`
   display: flex;
   flex-direction: column-reverse;
   gap: 1.6rem;
@@ -57,6 +57,7 @@ const Rodape = () => {
         text="Finalizar Pedido"
         icon={false}
         $transform={'uppercase'}
+        $maxWidth={17.3}
         onClick={() => {
           navigate('/compra-realizada');
           setQtdNoCarrinhoState(0);

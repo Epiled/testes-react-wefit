@@ -12,6 +12,7 @@ const Container = styled.main`
   justify-content: center;
   align-items: center;
   gap: 2.4rem;
+  flex: 1;
   padding: 6.4rem;
   background-color: var(--lighter);
   border-radius: .4rem;

@@ -5,6 +5,7 @@ export interface IBotao {
   $maxContainer?: boolean;
   $minHeight?: number;
   $minWidth?: number;
+  $maxWidth?: number;
   $tipo?: string;
   onClick?: () => void;
 }

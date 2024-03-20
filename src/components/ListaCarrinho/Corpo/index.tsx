@@ -11,7 +11,7 @@ import { useListaCarrinho } from "../../../state/hooks/useListaCarrinho";
 import { qtdNoCarrinhoState } from "../../../state/atom";
 import { useRecoilState } from "recoil";
 import { useState } from "react";
-import { useChangeItemCarrinho } from "../../../state/hooks/useChengeProdutoCarinho";
+import { useChangeItemCarrinho } from "../../../state/hooks/useChangeProdutoCarinho";
 
 const CorpoBox = styled.main`
   display: grid;
@@ -30,6 +30,7 @@ const Produto = styled.div`
   display: flex;
 
   @media screen and (min-width: 1080px) {
+    align-items: center;
     gap: 1.6rem;
   }
 `
@@ -50,7 +51,7 @@ const ProdutoTexos = styled.div`
 
   @media screen and (max-width: 1080px) {
     width: calc(100% - 7.9rem);
-    gap: 0.8rem;
+    gap: 1.6rem;
     justify-content: space-between;
     align-items: center;
     position: absolute;
@@ -126,11 +127,20 @@ const BotaoInc = styled(BotaoDec)`
 const CorpoText = styled(ProdutoPreco)`
   display: flex;
   flex-direction: column;
-  text-align: center;
+
+  @media screen and (max-width: 1080px) {
+    position: relative;
+    bottom: 1.5rem;
+    text-align: center;
+    margin-right: 2rem;
+  }
 `
 
 const CorpoTextMobile = styled.span`
+  display: none;
+
   @media screen and (max-width: 1080px) {
+    display: block;
     color: var(--color-txt-second);
     font-size: 1.2rem;
     font-weight: bold;

@@ -20,6 +20,7 @@ const Botao = styled.button<IBotao>`
   text-transform: ${props => props.$transform ? props.$transform : 'none'};
   min-width:  ${props => props.$minWidth ? `${props.$minWidth}rem` : '17.3rem'};
   min-height: ${props => props.$minHeight ? `${props.$minHeight}rem` : 'auto'};
+  max-width:  ${props => props.$maxWidth ? `${props.$maxWidth}rem` : 'auto'};
   ${props => props.$maxContainer ? 'align-self: stretch' : ''};
 
   &:hover {
@@ -64,7 +65,7 @@ const Contador = ({ quantidade }: { quantidade: number }) => {
   )
 }
 
-const Button = ({ text, icon, $transform, $maxContainer, $minHeight, $minWidth, onClick, $tipo}: IBotao) => {
+const Button = ({ text, icon, $transform, $maxContainer, $minHeight, $minWidth, $maxWidth, onClick, $tipo}: IBotao) => {
   const [quantidade, setQuantidade] = useState(0);
   const [qtdNoCarrinho, setQtdNoCarrinhoState] = useRecoilState(qtdNoCarrinhoState);
 
@@ -90,6 +91,7 @@ const Button = ({ text, icon, $transform, $maxContainer, $minHeight, $minWidth, 
       $maxContainer={$maxContainer} 
       $minHeight={$minHeight}
       $minWidth={$minWidth}
+      $maxWidth={$maxWidth}
       onClick={handleClick}
     >
       {icon && <Contador quantidade={quantidade} />}

@@ -5,7 +5,7 @@ import { IProdutoCarrinho } from "../../interfaces/IProdutosCarrinho";
 export const useChangeItemCarrinho = () => {
   const [produtosNoCarrinho, setProdutosNoCarrinho] = useRecoilState(produtosNoCarrinhoState);
 
-  // Função definir quantidade personalizado
+  // Função para definir uma quantidade personalizado de produtos no carrinho
   const changeItemCarrinho = (produto: IProdutoCarrinho, qtd: number) => {
     const existeItem = produtosNoCarrinho.find(item => item.id === produto.id);
 
@@ -16,6 +16,6 @@ export const useChangeItemCarrinho = () => {
     }
   };
 
-  // Retorna a função para adicionar o produto ao carrinho
+  // Retorna a função de definição de qunatidade personalizada
   return changeItemCarrinho;
 };

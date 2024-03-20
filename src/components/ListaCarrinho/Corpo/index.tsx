@@ -176,7 +176,7 @@ const Icon = styled.img`
   vertical-align: middle;
 `
 
-const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho & { props : IProdutoCarrinho}) => {
+const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho & { props: IProdutoCarrinho }) => {
   const [qtdNoCarrinho, setQtdNoCarrinho] = useRecoilState(qtdNoCarrinhoState);
   const [qtdEsteProduto, setQtdEsteProduto] = useState(quantidade);
 
@@ -198,14 +198,19 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
   const changeProdutoNoCarrinho = useChangeItemCarrinho();
   const handleChangeQtd = (item: IProdutoCarrinho, event: React.ChangeEvent<HTMLInputElement>) => {
-    const novoQtd = Number(event.target.value);
-    const valorValidado = novoQtd > 1 ? novoQtd : qtdEsteProduto;
-    changeProdutoNoCarrinho(item , valorValidado);
+    let valorBruto = event.target.value;
+    // Remova caracteres não numéricos, zeros à esquerda, vírgulas e pontos
+    valorBruto = valorBruto.replace(/\D/g, '').replace(/^0+/, '').replace(/[\.,]/g, '');
+    const novoQtd = Number(valorBruto);
 
+    const valorValidado = novoQtd > 0 ? novoQtd : qtdEsteProduto;
+    changeProdutoNoCarrinho(item, valorValidado);
+    
     const qtdCarrinhoLimpo = qtdNoCarrinho - qtdEsteProduto;
     const novaQtdCarrinho = qtdCarrinhoLimpo + valorValidado;
-    setQtdNoCarrinho(novaQtdCarrinho);
+
     setQtdEsteProduto(valorValidado);
+    setQtdNoCarrinho(novaQtdCarrinho);
   }
 
   const removerProdutoNoCarrinho = useListaCarrinho().removerProdutoCarinho;
@@ -217,7 +222,7 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
     setQtdEsteProduto(novoQtd);
   };
 
-  const {width, height} = dimenssoesImagem(image);
+  const { width, height } = dimenssoesImagem(image);
 
   return (
     <CorpoBox key={id}>
@@ -238,7 +243,7 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
       <Quantidade>
         <BotaoDec onClick={() => handleDecrementaQtd(props)} />
-        <IptQtd type="number" value={quantidade} onChange={(e) => handleChangeQtd(props, e)} />
+        <IptQtd type="number" value={qtdEsteProduto} onChange={(e) => handleChangeQtd(props, e)} />
         <BotaoInc onClick={() => handleIncrementQtd(props)} />
       </Quantidade>
 

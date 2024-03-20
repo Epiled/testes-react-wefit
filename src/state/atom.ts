@@ -2,17 +2,17 @@ import { atom } from "recoil";
 import { IProduto } from "../interfaces/IProdutos";
 import { IProdutoCarrinho } from "../interfaces/IProdutosCarrinho";
 
-export const qtdGeral = atom<number>({
-  key: 'qtdGeral',
+export const qtdNoCarrinhoState = atom<number>({
+  key: 'qtdNoCarrinhoState',
   default: 0,
 });
 
-export const listaProdutos = atom<IProduto[]>({
-  key: 'listaProdutos',
+export const listaProdutosState = atom<IProduto[]>({
+  key: 'listaProdutosState',
   default: [],
 });
 
-export const listaNoCarrinho = atom<IProdutoCarrinho[]>({
-  key: 'listaNoCarrinho',
+export const produtosNoCarrinhoState = atom<IProdutoCarrinho[]>({
+  key: 'produtosNoCarrinhoState',
   default: [],
 });

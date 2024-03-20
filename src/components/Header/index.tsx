@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import IconSacola from "../../assets/img/sacola.png";
 import { useRecoilState } from "recoil";
-import { qtdGeral } from "../../state/atom";
+import { qtdNoCarrinhoState } from "../../state/atom";
 import { useNavigate } from "react-router-dom";
 
 const HeaderBox = styled.header`
@@ -37,7 +37,7 @@ const CarrinhoText = styled.span`
   font-weight: 500;
   display: none;
 
-  @media screen and (min-width: 360px) {
+  @media screen and (min-width: 1080px) {
     display: initial;
   }
 `
@@ -61,7 +61,7 @@ const Icone = styled.img`
 `
 
 const Header = () => {
-  const [qtd] = useRecoilState(qtdGeral);
+  const [qtdNoCarrinho] = useRecoilState(qtdNoCarrinhoState);
   const navigator = useNavigate();
 
   return (
@@ -71,7 +71,7 @@ const Header = () => {
       <Carrinho>
         <CarrinhoTextos>
           <CarrinhoText>Meu Carrinho</CarrinhoText>
-          <CarrinhoQtd>{qtd} itens</CarrinhoQtd>
+          <CarrinhoQtd>{qtdNoCarrinho} itens</CarrinhoQtd>
         </CarrinhoTextos>
 
         <BotaoCarrinho onClick={() => navigator('/carrinho')}>

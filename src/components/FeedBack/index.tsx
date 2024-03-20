@@ -4,10 +4,7 @@ import ImageCompra from "../../assets/img/compra-realizada.png";
 
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
-
-interface IFeedBack {
-  tipo: 'notFound' | 'compra';
-}
+import { IFeedBack } from "../../interfaces/IFeedBack";
 
 const Container = styled.div`
   display: flex;
@@ -50,34 +47,22 @@ const FeedBack = ({ tipo }: IFeedBack) => {
 
   return (
     <Container>
-      {tipo === "compra" ?
-        <>
-          <Titulo>
-            Compra realizada com sucesso!
-          </Titulo>
-          <ImageComprar src={ImageCompra} />
-          <Button
-            text="Voltar"
-            $transform="uppercase"
-            $minHeight={4}
-            onClick={() => navigate('/')}
-          />
-        </>
+      <Titulo>
+        {tipo === 'compra' ? 'Compra realizada com sucesso!' : 'Parece que não há nada por aqui :('}
+      </Titulo>
+
+      {tipo === 'compra' ?
+        <ImageComprar src={ImageCompra} />
         :
-        <>
-          <Titulo>
-            Parece que não há nada por aqui :(
-          </Titulo>
-          <Moldura>
-            <ImageNot src={ImageNotFound} />
-          </Moldura>
-          <Button 
-            text="Recarregar página" 
-            $minHeight={4} 
-            onClick={() => navigate('/')}
-          />
-        </>
-      }
+        <Moldura>
+          <ImageNot src={ImageNotFound} />
+        </Moldura>}
+      <Button
+        text="Voltar"
+        $transform="uppercase"
+        $minHeight={4}
+        onClick={() => navigate('/')}
+      />
     </Container>
   )
 }

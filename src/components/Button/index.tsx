@@ -2,16 +2,8 @@ import styled from "styled-components"
 import IconCart from "../../assets/svg/shopping-cart.svg";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { qtdGeral } from "../../state/atom";
-interface IBotao {
-  text?: string;
-  icon?: boolean;
-  $transform?: 'uppercase' | 'capitalize' | 'lowercase';
-  $maxContainer?: boolean;
-  $minHeight?: number;
-  $tipo?: string;
-  onClick?: () => void;
-}
+import { qtdNoCarrinhoState } from "../../state/atom";
+import { IBotao } from "../../interfaces/IBotao";
 
 const Botao = styled.button<IBotao>`
   display: flex;
@@ -20,13 +12,13 @@ const Botao = styled.button<IBotao>`
   gap: 1.2rem;
   background-color: var(--color-btn-main);
   border-radius: .4rem;
+  border: 0;
   color: var(--lighter);
   font-size: 1.2rem;
   font-weight: bold;
   padding: .8rem;
   text-transform: ${props => props.$transform ? props.$transform : 'none'};
-  border: 0;
-  min-width: 17.3rem;
+  min-width:  ${props => props.$minWidth ? `${props.$minWidth}rem` : '17.3rem'};
   min-height: ${props => props.$minHeight ? `${props.$minHeight}rem` : 'auto'};
   ${props => props.$maxContainer ? 'align-self: stretch' : ''};
 
@@ -41,6 +33,10 @@ const Botao = styled.button<IBotao>`
       &:hover {
       background-color: var(--color-btn-second-hover);
     }
+  }
+
+  @media screen and (max-width: 1080px) {
+    min-height: 4rem;
   }
 `
 
@@ -68,9 +64,9 @@ const Contador = ({ quantidade }: { quantidade: number }) => {
   )
 }
 
-const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick, $tipo}: IBotao) => {
+const Button = ({ text, icon, $transform, $maxContainer, $minHeight, $minWidth, onClick, $tipo}: IBotao) => {
   const [quantidade, setQuantidade] = useState(0);
-  const [qtd, setQtdGeral] = useRecoilState(qtdGeral);
+  const [qtdNoCarrinho, setQtdNoCarrinhoState] = useRecoilState(qtdNoCarrinhoState);
 
   const qtdEstado = quantidade > 0;
 
@@ -82,7 +78,7 @@ const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick, $t
     
     if($tipo === "buy") {
       setQuantidade(quantidade + 1);
-      setQtdGeral(qtd + 1);
+      setQtdNoCarrinhoState(qtdNoCarrinho + 1);
     }
 
   };
@@ -93,6 +89,7 @@ const Button = ({ text, icon, $transform, $maxContainer, $minHeight, onClick, $t
       $transform={$transform} 
       $maxContainer={$maxContainer} 
       $minHeight={$minHeight}
+      $minWidth={$minWidth}
       onClick={handleClick}
     >
       {icon && <Contador quantidade={quantidade} />}

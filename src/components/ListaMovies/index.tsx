@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MovieCard from "../MovieCard";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { listaProdutos } from "../../state/atom";
+import { useRecoilState } from "recoil";
+import { listaProdutosState } from "../../state/atom";
 import { useEffect } from "react";
 
 const filmes = [
@@ -57,8 +57,7 @@ const Container = styled.main`
 `
 
 const ListaMovies = () => {
-  const [listaProdutosAPI] = useRecoilState(listaProdutos);
-  const setListaProdutos = useSetRecoilState(listaProdutos);
+  const [listaProdutos, setListaProdutos] = useRecoilState(listaProdutosState);
 
   useEffect(() => {
     setListaProdutos(filmes)
@@ -67,7 +66,7 @@ const ListaMovies = () => {
 
   return (
     <Container>
-      {listaProdutosAPI.map(filme => {
+      {listaProdutos.map(filme => {
         return <MovieCard key={filme.id} {...filme} />
       })}
     </Container>

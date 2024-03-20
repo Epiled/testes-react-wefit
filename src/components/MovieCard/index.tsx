@@ -1,19 +1,17 @@
 import styled from "styled-components"
 import Button from "../Button"
 import { IProduto } from "../../interfaces/IProdutos";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { listaNoCarrinho } from "../../state/atom";
-import { useState } from "react";
 import { useListaCarrinho } from "../../state/hooks/useListaCarrinho";
+import { formatarValor } from "../../utils/formatarValor";
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: .8rem;
-  padding: 1.6rem;
   background-color: var(--lighter);
   border-radius: .4rem;
-  align-items: center;
+  padding: 1.6rem;
 `
 
 const Image = styled.img`
@@ -43,13 +41,15 @@ const MovieCard = ({id, title, price, image}: IProduto) => {
     <Card data-produto-id={id}>
       <Image src={image} />
       <Titulo>{title}</Titulo>
-      <Preco>R$ {price.toFixed(2).replace('.', ',')}</Preco>
+      <Preco>{formatarValor(price)}</Preco>
       <Button 
-        text="Adicionar ao carrinho" 
-        $maxContainer 
-        icon 
-        onClick={() => handleAdicionarAoCarrinho()}
+        text="Adicionar ao carrinho"
         $tipo="buy"
+        $transform="uppercase"
+        $minHeight={4}
+        $maxContainer
+        icon
+        onClick={() => handleAdicionarAoCarrinho()}
       />
     </Card>
   )

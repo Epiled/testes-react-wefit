@@ -21,6 +21,7 @@ const Botao = styled.button<IBotao>`
   min-width:  ${props => props.$minWidth ? `${props.$minWidth}rem` : '17.3rem'};
   min-height: ${props => props.$minHeight ? `${props.$minHeight}rem` : 'auto'};
   max-width:  ${props => props.$maxWidth ? `${props.$maxWidth}rem` : 'auto'};
+  transition: background .5s;
   ${props => props.$maxContainer ? 'align-self: stretch' : ''};
 
   &:hover {
@@ -44,6 +45,7 @@ const Botao = styled.button<IBotao>`
 const Icone = styled.img`
   width: 1.142rem;
   height: 1.19rem;
+  margin-top: 0.15rem;
 `
 
 const QtdBox = styled.div`

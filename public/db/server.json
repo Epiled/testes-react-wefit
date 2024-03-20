@@ -1,4 +1,5 @@
 {
+  "comments": "Mantive esse código em caso da API ter problemas, use essa url http://localhost:5173/db/server.json",
   "products": [
     {
       "id": 1,

@@ -182,7 +182,7 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
   const incrementProdutoNoCarrinho = useIncrementItemCarrinho();
   const handleIncrementQtd = (item: IProdutoCarrinho) => {
-    const novoQtd = qtdNoCarrinho + 1
+    const novoQtd = qtdEsteProduto + 1
     setQtdNoCarrinho(qtdNoCarrinho + 1);
     incrementProdutoNoCarrinho(item);
     setQtdEsteProduto(novoQtd);
@@ -190,11 +190,19 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
   const decrementarProdutoNoCarrinho = useDecrementItemCarrinho();
   const handleDecrementaQtd = (item: IProdutoCarrinho) => {
-    const novoQtd = quantidade > 1 ? qtdNoCarrinho - 1 : qtdNoCarrinho;
-    setQtdNoCarrinho(novoQtd);
-    decrementarProdutoNoCarrinho(item);
+    console.log(qtdEsteProduto > 1);
+    console.log(qtdEsteProduto > 1);
+
+    const validaValor = qtdEsteProduto > 1;
+    const novoQtd = validaValor ? qtdEsteProduto - 1 : qtdEsteProduto;
+
+    if (validaValor) {
+      setQtdNoCarrinho(qtdNoCarrinho - 1);
+      decrementarProdutoNoCarrinho(item);
+    }
     setQtdEsteProduto(novoQtd);
   };
+
 
   const changeProdutoNoCarrinho = useChangeItemCarrinho();
   const handleChangeQtd = (item: IProdutoCarrinho, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -205,7 +213,7 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
     const valorValidado = novoQtd > 0 ? novoQtd : qtdEsteProduto;
     changeProdutoNoCarrinho(item, valorValidado);
-    
+
     const qtdCarrinhoLimpo = qtdNoCarrinho - qtdEsteProduto;
     const novaQtdCarrinho = qtdCarrinhoLimpo + valorValidado;
 

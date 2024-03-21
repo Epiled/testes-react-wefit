@@ -190,8 +190,6 @@ const Corpo = ({ id, title, price, image, quantidade, props }: IProdutoCarrinho 
 
   const decrementarProdutoNoCarrinho = useDecrementItemCarrinho();
   const handleDecrementaQtd = (item: IProdutoCarrinho) => {
-    console.log(qtdEsteProduto > 1);
-    console.log(qtdEsteProduto > 1);
 
     const validaValor = qtdEsteProduto > 1;
     const novoQtd = validaValor ? qtdEsteProduto - 1 : qtdEsteProduto;
